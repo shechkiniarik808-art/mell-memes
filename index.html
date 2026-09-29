@@ -143,6 +143,6 @@ function dockRelease(e){const d=dockDrag;if(!d||e.pointerId!==d.id)return;dockDr
 dock.addEventListener('pointerup',dockRelease);dock.addEventListener('pointercancel',e=>{if(dockDrag&&e.pointerId===dockDrag.id){dockDrag=null;moveDockTo(['photos','videos','saved'].indexOf(mode))}});
 dock.addEventListener('click',e=>{if(dockSuppressClick){e.preventDefault();e.stopImmediatePropagation();dockSuppressClick=false}},true);
 window.addEventListener('resize',()=>moveDockTo(['photos','videos','saved'].indexOf(mode)));
-requestAnimationFrame(()=>moveDockTo(0));if(location.hash.startsWith('#video-')){tab('videos');const id=Number(location.hash.slice(7));requestAnimationFrame(()=>{const v=[...document.querySelectorAll('.reel')].find(el=>el.querySelector('video')?.getAttribute('onplay')?.includes(','+id+','));if(v)v.scrollIntoView({block:'start'})})}
-render();
+requestAnimationFrame(()=>moveDockTo(0));
+render();if(location.hash.startsWith('#video-')){const sharedId=Number(location.hash.slice(7));tab('videos');requestAnimationFrame(()=>{const target=[...document.querySelectorAll('.reel')].find(el=>el.querySelector('video')?.getAttribute('onplay')?.includes(','+sharedId+',true'));if(target)target.scrollIntoView({block:'start'})})}
 </script></body></html>
